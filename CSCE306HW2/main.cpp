@@ -65,7 +65,7 @@ private:
 
                 }
             }
-            else if (lineIn.at(curPos) == 32){
+            else if (lineIn.at(curPos) == 32){ //if a space advance forward
                 curPos++;
             }
             else{
@@ -84,9 +84,9 @@ public:
         //move infile to tokenmap thats all
         string word;
         string word2;
-        while (infile >> word) {
+        while (infile >> word) {//read word by word
             infile >> word2;
-            tokenmap.insert(pair<string, string>(word2, word));
+            tokenmap.insert(pair<string, string>(word2, word));// store data into map
         }
     }
 
@@ -100,12 +100,10 @@ public:
             curPos = 0;
             while (curPos < curLine.length()-1){//while line still has data
                 string phrase = "";
-                phrase = phraseFind(curLine);
+                phrase = phraseFind(curLine);//store current phrase
                 try{outfile << tokenmap.at(phrase) << " : " << phrase << '\n';} //Compare to tokenmap then send back string that holds the token working?
                 catch (const std::out_of_range&){
-                    if (phrase == ""){
-
-                    }
+                    if (phrase == ""){}//if null do not execute if statements afterward as it will error
                     else if (phrase.at(0) >= 48 && phrase.at(0) <= 57){ //integer
                         outfile << "t_int" << " : " << phrase << '\n';
                     }
@@ -123,17 +121,13 @@ public:
 
 int main() {
     string buffer = "";
-    ifstream lexemeData("C:\\Users\\KyleF\\iCloudDrive\\Documents\\Code\\Xcode\\SoftwareDevHW\\Homework2\\CSCE306HW2\\CSCE306HW2\\tokenlexemedata.txt");//open lemexe data file
+    ifstream lexemeData("tokenlexemedata.txt");//open lemexe data file
     LexAnalyzer lex(lexemeData);//Create LexAnalyzer with lexeme data
     cout << "Input filename of Source Code: " << endl;
-    //cin >> buffer;
-    buffer = "C:\\Users\\KyleF\\iCloudDrive\\Documents\\Code\\Xcode\\SoftwareDevHW\\Homework2\\CSCE306HW2\\CSCE306HW2\\sourceCode.txt";
-    //todo uncomment delete placeholder below
+    cin >> buffer;
     ifstream sourceCode(buffer);
     cout << "Input filename of Output File: " << endl;
-    //cin >> buffer;
-    //todo uncomment and delete placeholder below
-    buffer = "C:\\Users\\KyleF\\iCloudDrive\\Documents\\Code\\Xcode\\SoftwareDevHW\\Homework2\\CSCE306HW2\\CSCE306HW2\\output.txt";
+    cin >> buffer;
     ofstream lexOut(buffer);
     lex.scanFile(sourceCode, lexOut);//Pass source code to lexanalyzer function
     lexOut.close();//close data file
