@@ -45,6 +45,7 @@ private:
                 }
                 else{
                     curPhrase.push_back('"');
+                    curPos++;
                 }
             }
             //SYMBOLS
@@ -101,7 +102,7 @@ public:
                 string phrase = "";
                 phrase = phraseFind(curLine);
                 try{outfile << tokenmap.at(phrase) << " : " << phrase << '\n';} //Compare to tokenmap then send back string that holds the token working?
-                catch (const out_of_range&){
+                catch (const std::out_of_range&){
                     if (phrase == ""){
 
                     }
@@ -122,13 +123,17 @@ public:
 
 int main() {
     string buffer = "";
-    ifstream lexemeData("tokenlexemedata.txt");//open lemexe data file
+    ifstream lexemeData("C:\\Users\\KyleF\\iCloudDrive\\Documents\\Code\\Xcode\\SoftwareDevHW\\Homework2\\CSCE306HW2\\CSCE306HW2\\tokenlexemedata.txt");//open lemexe data file
     LexAnalyzer lex(lexemeData);//Create LexAnalyzer with lexeme data
     cout << "Input filename of Source Code: " << endl;
-    cin >> buffer;
+    //cin >> buffer;
+    buffer = "C:\\Users\\KyleF\\iCloudDrive\\Documents\\Code\\Xcode\\SoftwareDevHW\\Homework2\\CSCE306HW2\\CSCE306HW2\\sourceCode.txt";
+    //todo uncomment delete placeholder below
     ifstream sourceCode(buffer);
     cout << "Input filename of Output File: " << endl;
-    cin >> buffer;
+    //cin >> buffer;
+    //todo uncomment and delete placeholder below
+    buffer = "C:\\Users\\KyleF\\iCloudDrive\\Documents\\Code\\Xcode\\SoftwareDevHW\\Homework2\\CSCE306HW2\\CSCE306HW2\\output.txt";
     ofstream lexOut(buffer);
     lex.scanFile(sourceCode, lexOut);//Pass source code to lexanalyzer function
     lexOut.close();//close data file
